@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react'
+import Countries from './componets/Countries'
 
-function App() {
+const App = () => {
+  const [countries, setCountries] = useState([]);
+  const [error, setError] = useState(null);
+  const ErrorMessage = "Data fatching not successfull. Please check your api url";
+
+  useEffect(() => {
+    fetch('https://restcountries.com/v2/all')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error({ ErrorMessage });
+        } else {
+          return response.json();
+        }
+      })
+      .then(data => {
+        setCountries(data);
+      }
+      )
+      .catch(error => {
+        setError(error.message);
+      }
+      );
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Country App</h1>
+      {error && <h4>{ErrorMessage}</h4>}
+      <Countries countries={countries} />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
