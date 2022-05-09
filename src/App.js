@@ -4,11 +4,12 @@ import Search from './componets/Search';
 
 const App = () => {
   const [countries, setCountries] = useState([]);
+  const [filterCountries, setFilterCountries] = useState(countries);
   const [error, setError] = useState(null);
   const ErrorMessage = 'Data fatching not successfull. Please check your api url';
 
   const handleRemoveCountry = (name) => {
-    setCountries(countries.filter((country) => country.name !== name));
+    setFilterCountries(filterCountries.filter((country) => country.name !== name));
   }
   const handleSearch = (search) => {
     let value = search.toLowerCase();
@@ -16,7 +17,7 @@ const App = () => {
       const countryName = country.name.toLowerCase();
       return countryName.startsWith(value);
     });
-    setCountries(newCountries);
+    setFilterCountries(newCountries);
   }
 
   useEffect(() => {
@@ -30,6 +31,7 @@ const App = () => {
       })
       .then(data => {
         setCountries(data);
+        setFilterCountries(data);
       }
       )
       .catch(error => {
@@ -43,7 +45,7 @@ const App = () => {
       <h1>Country App</h1>
       <Search onSearch={handleSearch} />
       {error && <h4>{ErrorMessage}</h4>}
-      <Countries countries={countries} onRemoveCountry={handleRemoveCountry} />
+      <Countries countries={filterCountries} onRemoveCountry={handleRemoveCountry} />
     </div>
   )
 }
