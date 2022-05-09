@@ -1,14 +1,13 @@
-import React from 'react'
-import Country from './Country'
+import React from 'react';
 import { v4 as uuidv4 } from "uuid";
+import Country from './Country';
 
 const Countries = (props) => {
-    console.log(props)
     return (
-        <section>
+        <section className='countries'>
             {props.countries.map((country) => {
                 return (
-                    <Country country={country} key={uuidv4()} />
+                    <Country country={country} key={uuidv4()} onRemoveCountry={props.onRemoveCountry}/>
                 )
             })}
         </section>

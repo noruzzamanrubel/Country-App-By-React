@@ -6,6 +6,10 @@ const App = () => {
   const [error, setError] = useState(null);
   const ErrorMessage = "Data fatching not successfull. Please check your api url";
 
+  const handleRemoveCountry = (name) => {
+    setCountries(countries.filter((country) => country.name !== name));
+  }
+
   useEffect(() => {
     fetch('https://restcountries.com/v2/all')
       .then((response) => {
@@ -29,7 +33,7 @@ const App = () => {
     <div>
       <h1>Country App</h1>
       {error && <h4>{ErrorMessage}</h4>}
-      <Countries countries={countries} />
+      <Countries countries={countries} onRemoveCountry={handleRemoveCountry} />
     </div>
   )
 }
