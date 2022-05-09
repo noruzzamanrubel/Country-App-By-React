@@ -15,20 +15,32 @@ p {
     margin: 1rem 0;
 }
 
-input {
+.main-wrapper h1 {
+    text-align: center;
+    font-size: 3rem;
+    color: #34495e;
+}
+
+.search-wrapper {
+    text-align: center;
+}
+
+.search-wrapper input {
     padding: 0.6rem;
     border-radius: 0.6rem;
     width: 20rem;
     font-size: 1.2rem;
+    border: 2px solid #34495e;
 }
 
-input:focus {
+.search-wrapper input:focus {
     background-color: bisque;
+    outline: none;
 }
 
-h1 {
-    text-align: center;
-    font-size: 3rem;
+::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: #34495e;
 }
 
 .countries {
